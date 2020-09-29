@@ -1,4 +1,4 @@
-#! /usr/bin/perl
+#!/usr/bin/env perl
 #
 # sga-deinterleave.pl READS OUT1 OUT2
 #

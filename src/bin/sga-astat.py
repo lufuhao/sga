@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python3
 #
 # sga-astat.py - Compute Myers' a-statistic for a set of contigs using read alignments
 # in a bam file
@@ -30,20 +30,20 @@ genomeSize = 0
 arrivalRate = 0
 
 def usage():
-    print 'usage: sga-astat.py in.bam'
-    print 'Compute Myers\' a-statistic for a set of contigs using the read alignments in in.bam'
-    print 'Options:'
-    print '    -m=INT          only compute a-stat for contigs at least INT bases in length'
-    print '    -b=INT          use the longest INT contigs to perform the initial estimate'
-    print '                    of the arrival rate (default: ' + str(numContigsForInitialEstimate) + ')' 
-    print '    -n=INT          perform INT bootstrap iterations of the estimate'
-    print '    -g=INT          use INT as the genome size instead of estimating it'
-    print '    --no-duplicates do not use duplicate reads to calculate statistics'
+    print ('usage: sga-astat.py in.bam')
+    print ('Compute Myers\' a-statistic for a set of contigs using the read alignments in in.bam')
+    print ('Options:')
+    print ('    -m=INT          only compute a-stat for contigs at least INT bases in length')
+    print ('    -b=INT          use the longest INT contigs to perform the initial estimate')
+    print ('                    of the arrival rate (default: ' + str(numContigsForInitialEstimate) + ')' )
+    print ('    -n=INT          perform INT bootstrap iterations of the estimate')
+    print ('    -g=INT          use INT as the genome size instead of estimating it')
+    print ('    --no-duplicates do not use duplicate reads to calculate statistics')
 
 try:
     opts, args = getopt.gnu_getopt(sys.argv[1:], 'm:b:n:g:', ['help', 'no-duplicates'])
-except getopt.GetoptError, err:
-        print str(err)
+except getopt.GetoptError:
+        print (str(err))
         usage()
         sys.exit(2)
 
@@ -63,7 +63,7 @@ for (oflag, oarg) in opts:
             sys.exit(1)
 
 if len(args) == 0:
-    print 'Error: a BAM file must be provided\n'
+    print ('Error: a BAM file must be provided\n')
     usage()
     sys.exit(2)
 
@@ -174,7 +174,7 @@ sumUnique = 0
 sumRepeat = 0
 for cd in contigData:
     if cd.len >= minLength and cd.nlen > 0:
-        print '%s\t%d\t%d\t%d\t%f\t%f' % (cd.name, cd.len, cd.nlen, cd.n, cd.n / (cd.nlen * arrivalRate), cd.astat)
+        print ('%s\t%d\t%d\t%d\t%f\t%f' % (cd.name, cd.len, cd.nlen, cd.n, cd.n / (cd.nlen * arrivalRate), cd.astat))
         
         if cd.bUnique:
             sumUnique += cd.len

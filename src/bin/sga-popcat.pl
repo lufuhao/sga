@@ -1,4 +1,4 @@
-#! /usr/bin/perl
+#!/usr/bin/env perl
 # Cat a set of fasta/fastq files together and build an index of read index -> original file
 
 use strict;

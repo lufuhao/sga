@@ -1,4 +1,4 @@
-#! /usr/bin/perl
+#!/usr/bin/env perl
 # Run Illumina's BEETL BWT builder on a set of sequence reads
 # and convert the output to sga's index format.
 use strict;
@@ -8,8 +8,8 @@ use File::Temp;
 use File::Basename;
 
 # Program paths
-my $SGA_BIN = "/nfs/users/nfs_j/js18/work/devel/sga/src/build-lenny/SGA/sga";
-my $BEETL_BIN = "/nfs/users/nfs_j/js18/work/devel/BEETL/Beetl";
+my $SGA_BIN = "sga";
+my $BEETL_BIN = "Beetl";
 
 # Options
 my $bHelp = 0;

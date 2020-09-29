@@ -1,5 +1,22 @@
-SGA - String Graph Assembler
+# SGA - String Graph Assembler
 ==========================================
+
+Again, just correct some compiling errors
+
+see change.log.md
+
+
+By:
+
+Fu-Hao Lu
+
+Email: LUFUHAO@HOTMAIL.COM
+
+Henan University
+==========================================
+
+
+
 
 SGA is a de novo genome assembler based on the concept of string graphs. The major goal of SGA is to be very memory efficient, which is achieved by using a compressed representation of DNA sequence reads.
 

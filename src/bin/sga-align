@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python3
 
 # pipeline to align reads to contigs implemented with ruffus (http://ruffus.org.uk)
 from ruffus import *
@@ -14,7 +14,7 @@ def getBasename(inFile):
 
 # Run a shell command
 def runCmd(cmd):
-    print cmd
+    print (cmd)
     return subprocess.Popen(cmd, shell=True).wait()
 
 def _align(ref, reads, out):
@@ -29,7 +29,7 @@ def runBWAIndex(inFile):
 def runBWAAln(inFiles, contigsFile, outFile):
     assert len(inFiles) == 2
     if inFiles[0] == inFiles[1]:
-        print 'Error: the two reads files are the same'
+        print ('Error: the two reads files are the same')
         sys.exit(1)
 
     contigsBasename = getBasename(contigsFile)
@@ -65,11 +65,11 @@ def runSplitReads(inFiles, outFiles):
 
 #
 def usage():
-    print 'usage: sga-align [options] <contigs file> <input files>'
-    print 'align reads to contigs'
-    print 'Options:'
-    print '       --name=STR          Use STR as the basename for the output files.'
-    print '       -t,--threads=N      Use N threads when running bwa.'
+    print ('usage: sga-align [options] <contigs file> <input files>')
+    print ('align reads to contigs')
+    print ('Options:')
+    print ('       --name=STR          Use STR as the basename for the output files.')
+    print ('       -t,--threads=N      Use N threads when running bwa.')
 
 
 # Variables
@@ -79,8 +79,8 @@ try:
     opts, args = getopt.gnu_getopt(sys.argv[1:], 't:', ["name=",
                                                         "threads=",
                                                         "help"])
-except getopt.GetoptError, err:
-        print str(err)
+except getopt.GetoptError:
+        print (str(err))
         usage()
         sys.exit(2)
     
@@ -93,12 +93,12 @@ for (oflag, oarg) in opts:
             usage()
             sys.exit(1)
         else:
-            print 'Unrecognized argument', oflag
+            print ('Unrecognized argument' + oflag)
             usage()
             sys.exit(0)
 
 if len(args) < 2:
-    print 'Error, a contigs file and reads file must be provided'
+    print ('Error, a contigs file and reads file must be provided')
     usage()
     sys.exit(0)
 
@@ -107,11 +107,11 @@ contigFile = args[0]
 readFiles = args[1:]
 
 if len(readFiles) == 0:
-    print 'Error, at least one input file must be specified'
+    print ('Error, at least one input file must be specified')
     sys.exit(0)
 
-print contigFile
-print readFiles
+print (contigFile)
+print (readFiles)
 
 indexInFiles = contigFile
 indexOutFiles = [contigFile + ".bwt"]

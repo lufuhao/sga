@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python3
 # sga-joinpe - join the two ends of a paired end read together 
 # into one composite sequence. This is used to run rmdup on the pairs
 import getopt
@@ -9,7 +9,7 @@ def writeJoinedRecord(out, record1, record2):
     join_name_1 = record1[0].split()[0][0:-2]
     join_name_2 = record2[0].split()[0][0:-2]
     if join_name_1 != join_name_2:
-        print 'Error: Reads are incorrectly paired ', record1[0], record2[0]
+        print ('Error: Reads are incorrectly paired ' + record1[0] + " " + record2[0])
         sys.exit(2)
 
     join_pos = len(record1[1])
@@ -30,7 +30,7 @@ def writeSplitRecord(out, record):
     if header_fields[1].find("join_pos") != -1:
         join_pos = int(header_fields[1].split(":")[1])
     else:
-        print 'Error: joined record does not have the correct format ', record[0]
+        print ('Error: joined record does not have the correct format ' + record[0])
 
 #    print 'join_pos', join_pos
     id1 = header_fields[0] + "/1"
@@ -76,7 +76,7 @@ def readRecord(file):
     elif id[0] == "@":
         isFastq = True
     else:
-        print 'Unknown record header: ', line
+        print ('Unknown record header: ' + line)
         sys.exit(2)
 
     out.append(id)
@@ -90,15 +90,15 @@ def readRecord(file):
 
 #
 def usage():
-    print 'sga-joinedpe [-o outfile] FILE'
-    print 'allow rmdup to be performed on entire paired end reads'
-    print 'if the --join option is provided, two consequetive records in FILE will be concatenated into one read.'
-    print 'if the --split option is provided, each record in FILE will be split into two'
-    print '\nOptions: '
-    print '          -o, --outfile=FILE    Write results to FILE [default=stdout]'
-    print '              --join            Join the reads together'
-    print '              --split           Split the reads apart'
-    print '              --help            Print this usage message'
+    print ('sga-joinedpe [-o outfile] FILE')
+    print ('allow rmdup to be performed on entire paired end reads')
+    print ('if the --join option is provided, two consequetive records in FILE will be concatenated into one read.')
+    print ('if the --split option is provided, each record in FILE will be split into two')
+    print ('\nOptions: ')
+    print ('          -o, --outfile=FILE    Write results to FILE [default=stdout]')
+    print ('              --join            Join the reads together')
+    print ('              --split           Split the reads apart')
+    print ('              --help            Print this usage message')
 
 # Defaults
 outfilename = ""
@@ -111,8 +111,8 @@ try:
                                                         "split",
                                                         "join",
                                                         "help"])
-except getopt.GetoptError, err:
-        print str(err)
+except getopt.GetoptError:
+        print (str(err))
         usage()
         sys.exit(2)
     
@@ -127,20 +127,20 @@ for (oflag, oarg) in opts:
             usage()
             sys.exit(1)
         else:
-            print 'Unrecognized argument', oflag
+            print ('Unrecognized argument' + oflag)
             usage()
             sys.exit(0)
 
 if len(args) != 1:
-    print 'Error: Exactly one input file must be provided'
+    print ('Error: Exactly one input file must be provided')
     sys.exit(2)
 
 if not join and not split:
-    print 'Error: One of --join or --split must be provided'
+    print ('Error: One of --join or --split must be provided')
     sys.exit(2)
 
 if join and split:
-    print 'Error: Only one of --join or --split can be provided'
+    print ('Error: Only one of --join or --split can be provided')
     sys.exit(2)
 
 filename = args[0]
@@ -158,7 +158,7 @@ if join:
         record2 = readRecord(file)
 
         if len(record1) != len(record2):
-            print 'Error, record lengths differ'
+            print ('Error, record lengths differ')
             sys.exit(2)
 
         # If no record was read, we are done
