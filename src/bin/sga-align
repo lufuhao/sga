@@ -33,7 +33,7 @@ def runBWAAln(inFiles, contigsFile, outFile):
         sys.exit(1)
 
     contigsBasename = getBasename(contigsFile)
-    tempSAI = map(lambda x : getBasename(x) + "." + contigsBasename + ".bwsai", inFiles)
+    tempSAI = list(map(lambda x : getBasename(x) + "." + contigsBasename + ".bwsai", inFiles))
 
     _align(contigsFile, inFiles[0], tempSAI[0])
     _align(contigsFile, inFiles[1], tempSAI[1])
